@@ -89,15 +89,16 @@ function App() {
   }
   return (
     <>
+    <h1>IEMLabs Meeting Scheduling</h1>
       <form action="" method="post" onSubmit={handleSubmit}>
         <label htmlFor="meetFor">
           Enter Meeting Subject
           <input type="text"  id='meetFor' required/>
-        </label><br />
+        </label>
         <label htmlFor="meetBy">
           Enter Meeting Host Name
           <input type="text"  id='meetBy' required/>
-        </label><br />
+        </label>
         <label htmlFor="meetTime">
           Select Meeting Time
           <select name="" id="meetTime" onChange={handleTimeChange}>
@@ -112,10 +113,10 @@ function App() {
             <option value="K">05 PM to 06 PM</option>
             <option value="L">06 PM to 07 PM</option>
           </select>
-        </label><br />
+        </label>
         <label htmlFor="meetDate">
           Enter Meeting Date
-          <select name=""  id="" className='date monthpicker' onChange={handleMonthchange}>
+          <div className="group"><select name=""  id="" className='date monthpicker' onChange={handleMonthchange}>
           <option value="" className='disabled'>Select month</option>
             <option value="" className={isMonthPassed(1) ? 'disabled' : ''}>january</option>
             <option value="" className={isMonthPassed(2) ? 'disabled' : ''}>february</option>
@@ -132,16 +133,18 @@ function App() {
           </select>
           <select name=""  id="meetDate" className='date daypicker inactive'  onChange={handleDateChange}>
             <option value="">Select date</option>
-          </select>
-        </label><br />
+          </select></div>
+          
+        </label>
         {error ? (<p className='error'>{error}</p>): ""}
         {success ? (<p className='success'>{success}</p>): ""}
         <button type="submit">Schedule Meeting</button>
-
-      </form>
-    <button onClick={handletableshow}>
+        <a href="https://docs.google.com/spreadsheets/d/1rLRdmlS5d4sjyqcWTq6x5qLZN8ot91kb1Do8-nsZrb0/" className='phonelink' target='_blank' rel="noreferrer">Visit Sheet</a>
+    <button className='pclink' onClick={handletableshow}>
       {table ? "Hide Table":"Show Table"}
     </button>
+      </form>
+      
       {table && index ? (
     <table>
         <tbody>
