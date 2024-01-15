@@ -8,3 +8,10 @@
 .error{
     color: red;
 }
+.success{
+    color: green;
+}
+table,tr,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}

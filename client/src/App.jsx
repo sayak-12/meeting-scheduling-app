@@ -10,9 +10,14 @@ function App() {
   const [meetTime, setmeetTime] = useState();
   const [meetDate, setmeetDate] = useState();
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [urli, setUrli] = useState(null);
+  const [index, setIndex] = useState(null);
+  const [table, setTable] = useState(false);
+  const [submit, setSubmit] = useState(false);
   useEffect(()=>{
     if (meetDate && meetTime) {
+      setError(null);
       var url = `Sheet1!${meetTime}${meetDate}`;
       setUrli(url)
       console.log(url);
@@ -23,7 +28,13 @@ function App() {
       })
     }
   }, [meetDate, meetTime])
-
+  useEffect(()=>{
+    axios.post("http://localhost:3000/", {url: "Sheet1!A:L"}).then((data)=>{
+        if (data.data.data.values) {
+          setIndex(data.data.data.values);
+        }
+      })
+  },[submit])
   const isMonthPassed = (month) => {
     return month < currentMonth;
   };
@@ -60,15 +71,21 @@ function App() {
   }
   const handleSubmit =(e)=>{
     e.preventDefault();
+    setError(null);
+    setSuccess(null);
     var meetfor = document.getElementById("meetFor").value;
     var meetby = document.getElementById("meetBy").value;
     var topic = `${meetfor} - ${meetby}`;
     console.log(topic);
     if (!error) {
       axios.post("http://localhost:3000/submit", {url:urli, topic:topic}).then((data)=>{
-        console.log("successful", data);
+        setSuccess("Data Successfully Submitted : "+topic)
+        setSubmit(true)
       }).catch((err)=>console.log(err))
     }
+  }
+  const handletableshow = ()=>{
+    setTable(!table)
   }
   return (
     <>
@@ -118,9 +135,27 @@ function App() {
           </select>
         </label><br />
         {error ? (<p className='error'>{error}</p>): ""}
+        {success ? (<p className='success'>{success}</p>): ""}
         <button type="submit">Schedule Meeting</button>
 
       </form>
+    <button onClick={handletableshow}>
+      {table ? "Hide Table":"Show Table"}
+    </button>
+      {table && index ? (
+    <table>
+        <tbody>
+  {index.map((ind, index) => (
+    <tr key={index}>
+      {ind.map((inds) => (
+        <td key={`${Math.floor(Math.random() * 100000)}_${inds}`}>{inds}</td>
+      ))}
+    </tr>
+  ))}
+</tbody>
+
+    </table>
+) : ""}
     </>
   )
 }

@@ -1,38 +1,33 @@
 const express = require("express");
-const {google}= require("googleapis");
+const {googleread, googlewrite}= require("./googleapi.js")
 const cors = require("cors");
 
 const app = express();
 app.use(cors())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json());
-app.post("/", async (req, res)=>{
+app.post("/", async (req, res) => {
     var requrl = req.body.url;
-    const auth = new google.auth.GoogleAuth({
-        keyFile: "credentials.json",
-        scopes: "https://www.googleapis.com/auth/spreadsheets"
-    });
-    const spreadsheetId = "1rLRdmlS5d4sjyqcWTq6x5qLZN8ot91kb1Do8-nsZrb0";
-    const client = await auth.getClient();
-    const googleSheets = google.sheets({version:"v4", auth: client});
-    const metadata = await googleSheets.spreadsheets.get({
-        auth, 
-        spreadsheetId
-    })
+    try {
+        const getRows = await googleread(requrl);
+        res.send(getRows);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
-    const getRows = await googleSheets.spreadsheets.values.get({
-        auth, 
-        spreadsheetId,
-        range : `${requrl}`
-    })
-    res.send(getRows);
-})
-
-app.post("/submit", (req,res)=>{
+app.post("/submit", async (req,res)=>{
     var requrl = req.body.url;
     var topic = req.body.topic;
     console.log(requrl, topic);
-    res.send(topic);
+    try {
+        const getResult = await googlewrite(requrl, topic);
+        res.send(getResult);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
 })
 app.listen(3000, ()=>{
     console.log("listening to port 3000");
