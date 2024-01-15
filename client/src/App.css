@@ -1,0 +1,10 @@
+.disabled{
+     display: none;
+}
+.inactive{
+    pointer-events: none;
+    opacity: 0;
+}
+.error{
+    color: red;
+}
