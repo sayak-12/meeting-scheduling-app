@@ -13,7 +13,7 @@ form{
     flex-direction: column;
     gap: 10px;
     width: 300px;
-    padding: 3%;
+    padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.359);
 }
@@ -58,6 +58,12 @@ select{
     align-items: center;
     text-decoration: none;
     background: brown;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 5px;
 }
 button, .phonelink{
     padding: 8px 15px;
@@ -100,6 +106,5 @@ table,tr,td{
     }
     form{
         width: 250px;
-        padding: 5%;
     }
 }

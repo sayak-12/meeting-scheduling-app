@@ -140,9 +140,9 @@ function App() {
         {success ? (<p className='success'>{success}</p>): ""}
         <button type="submit">Schedule Meeting</button>
         <a href="https://docs.google.com/spreadsheets/d/1rLRdmlS5d4sjyqcWTq6x5qLZN8ot91kb1Do8-nsZrb0/" className='phonelink' target='_blank' rel="noreferrer">Visit Sheet</a>
-    <button className='pclink' onClick={handletableshow}>
+    <div className='pclink' onClick={handletableshow}>
       {table ? "Hide Table":"Show Table"}
-    </button>
+    </div>
       </form>
       
       {table && index ? (
