@@ -107,4 +107,7 @@ table,tr,td{
     form{
         width: 250px;
     }
+    table{
+        display: none;
+    }
 }
