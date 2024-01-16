@@ -21,7 +21,7 @@ function App() {
       var url = `Sheet1!${meetTime}${meetDate}`;
       setUrli(url)
       console.log(url);
-      axios.post("http://localhost:3000/", {url: url}).then((data)=>{
+      axios.post("https://meeting-app-backend-hno6.onrender.com/", {url: url}).then((data)=>{
         if (data.data.data.values) {
           setError("Slot Already Occupied");
         }
@@ -29,7 +29,7 @@ function App() {
     }
   }, [meetDate, meetTime])
   useEffect(()=>{
-    axios.post("http://localhost:3000/", {url: "Sheet1!A:L"}).then((data)=>{
+    axios.post("https://meeting-app-backend-hno6.onrender.com/", {url: "Sheet1!A:L"}).then((data)=>{
         if (data.data.data.values) {
           setIndex(data.data.data.values);
         }
@@ -78,7 +78,7 @@ function App() {
     var topic = `${meetfor} - ${meetby}`;
     console.log(topic);
     if (!error) {
-      axios.post("http://localhost:3000/submit", {url:urli, topic:topic}).then((data)=>{
+      axios.post("https://meeting-app-backend-hno6.onrender.com/", {url:urli, topic:topic}).then((data)=>{
         setSuccess("Data Successfully Submitted : "+topic)
         setSubmit(true)
       }).catch((err)=>console.log(err))

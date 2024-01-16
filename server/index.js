@@ -1,8 +1,9 @@
 const express = require("express");
 const {googleread, googlewrite}= require("./googleapi.js")
 const cors = require("cors");
-
+const dotenv = require("dotenv")
 const app = express();
+dotenv.config();
 app.use(cors())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json());
@@ -29,6 +30,6 @@ app.post("/submit", async (req,res)=>{
         res.status(500).send("Internal Server Error");
     }
 })
-app.listen(3000, ()=>{
-    console.log("listening to port 3000");
+app.listen(process.env.PORT||3000, ()=>{
+    console.log("listening to requests");
 })
