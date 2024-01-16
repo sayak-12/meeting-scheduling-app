@@ -1,7 +1,7 @@
 import './App.css'
 import { useState, useEffect } from 'react'
-import daysinmonth from './assets/datemonth.jsx';
-import dayofyear from './assets/dayofyear.jsx';
+import daysinmonth from './assets/datemonth.js';
+import dayofyear from './assets/dayofyear.js';
 import axios from "axios"
 function App() {
   const currentMonth = new Date().getMonth() +1;
